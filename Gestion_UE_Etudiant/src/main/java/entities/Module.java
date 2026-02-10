@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 public class Module {
     private String matricule;
     private String nom;
@@ -80,5 +82,14 @@ public class Module {
         this.uniteEnseignement = uniteEnseignement;
     }
 
+    public boolean equals(Object object) {
+        if (!(object instanceof Module)) return false;
+        if (!super.equals(object)) return false;
+        Module module = (Module) object;
+        return coefficient == module.coefficient && volumeHoraire == module.volumeHoraire && java.util.Objects.equals(matricule, module.matricule) && java.util.Objects.equals(nom, module.nom) && type == module.type && java.util.Objects.equals(uniteEnseignement, module.uniteEnseignement);
+    }
 
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), matricule, nom, coefficient, volumeHoraire, type, uniteEnseignement);
+    }
 }
