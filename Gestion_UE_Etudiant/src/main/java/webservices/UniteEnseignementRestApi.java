@@ -113,7 +113,6 @@ public class UniteEnseignementRestApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") int id, UniteEnseignement ue) {
-        ue = new UniteEnseignement(id, "update", "Mme Maroua Douiri", 6, 1);
         if(helper.updateUniteEnseignement(id,ue))
             return Response
                     .status(Response.Status.OK)
