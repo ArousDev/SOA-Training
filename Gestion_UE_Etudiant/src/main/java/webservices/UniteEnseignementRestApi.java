@@ -19,7 +19,7 @@ public class UniteEnseignementRestApi {
     public Response getAll() {
         return Response
                 .status(200)
-                .entity(this.helper.getListeUE())
+                .entity(helper.getListeUE())
                 .build();
     }
 
@@ -27,7 +27,7 @@ public class UniteEnseignementRestApi {
     @Path("/get/id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") int id) {
-        UniteEnseignement ue = this.helper.getUEByCode(id);
+        UniteEnseignement ue = helper.getUEByCode(id);
         if(ue != null)
             return Response
                     .status(Response.Status.FOUND)
@@ -44,13 +44,12 @@ public class UniteEnseignementRestApi {
                     .build();
     }
 
-    @GET
+    @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response add(UniteEnseignement ue) {
-        ue = new UniteEnseignement(6, "add", "Mme Maroua Douiri", 6, 1);
-        if(this.helper.addUniteEnseignement(ue))
+        if(helper.addUniteEnseignement(ue))
             return Response
                     .status(Response.Status.CREATED)
                     .entity(Map.of(
@@ -70,7 +69,7 @@ public class UniteEnseignementRestApi {
     @Path("/get/sem/{nb}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBySemester(@PathParam("nb") int nb) {
-        List<UniteEnseignement> list = this.helper.getUEBySemestre(nb);
+        List<UniteEnseignement> list = helper.getUEBySemestre(nb);
         if(!list.isEmpty())
             return Response
                     .status(Response.Status.FOUND)
@@ -87,7 +86,7 @@ public class UniteEnseignementRestApi {
                     .build();
     }
 
-    @GET
+    @DELETE
     @Path("/delete/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -109,12 +108,12 @@ public class UniteEnseignementRestApi {
                     .build();
     }
 
-    @GET
+    @PUT
     @Path("/update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") int id) {
-        UniteEnseignement ue = new UniteEnseignement(id, "update", "Mme Maroua Douiri", 6, 1);
+    public Response update(@PathParam("id") int id, UniteEnseignement ue) {
+        ue = new UniteEnseignement(id, "update", "Mme Maroua Douiri", 6, 1);
         if(helper.updateUniteEnseignement(id,ue))
             return Response
                     .status(Response.Status.OK)
